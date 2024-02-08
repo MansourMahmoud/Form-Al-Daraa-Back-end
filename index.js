@@ -43,7 +43,7 @@ app.post("/send", (request, response) => {
 
   const mail_option = {
     from: request.body.email || "aldr3alwaqy4@gmail.com",
-    to: "mansourmahmoud77a@gmail.com",
+    to: "aldr3alwaqy4@gmail.com",
     subject: "عرض اسعار",
     text: "الدرع الواقي",
     html: `
