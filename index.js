@@ -74,7 +74,7 @@ app.post("/send", (request, response) => {
         </div>
 
         <div style="display: flex; gap: 10px;">
-          <span style="font-size: 22px; color: black;"> اختار المستخدم من منتجات واقيات الشاشات المسطحة :- </span>
+          <span style="font-size: 22px; color: black;"> اختار المستخدم من منتجات ${screenProtector} :- </span>
         </div>
         <div style="overflow-x: auto;">
           <table style="border-collapse: collapse; width: 100%; font-size: 18px;">
