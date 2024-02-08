@@ -18,13 +18,12 @@ app.post("/send", (request, response) => {
     email,
     screenProtector,
     flatScreensProducts,
-    flatScreensnumberOfProducts,
     curvedScreensProducts,
-    curvedScreensNumberOfProducts,
     region,
     city,
     locationDetails,
   } = request.body;
+  console.log(request.body);
 
   const transporter = nodemailer.createTransport({
     service: "Gmail",
@@ -37,20 +36,14 @@ app.post("/send", (request, response) => {
   let screenProducts = null;
 
   if (screenProtector === "واقيات شاشات مسطحة") {
-    screenProducts = {
-      type: flatScreensProducts,
-      num: flatScreensnumberOfProducts,
-    };
+    screenProducts = flatScreensProducts;
   } else if (screenProtector === "واقيات شاشات منحنية") {
-    screenProducts = {
-      type: curvedScreensProducts,
-      num: curvedScreensNumberOfProducts,
-    };
+    screenProducts = curvedScreensProducts;
   }
 
   const mail_option = {
     from: request.body.email || "aldr3alwaqy4@gmail.com",
-    to: "aldr3alwaqy4@gmail.com",
+    to: "mansourmahmoud77a@gmail.com",
     subject: "عرض اسعار",
     text: "الدرع الواقي",
     html: `
@@ -76,19 +69,37 @@ app.post("/send", (request, response) => {
         </div>
 
         <div style="display: flex; gap: 10px;">
-          <span style="font-size: 22px; color: black;"> نوع حامي الشاشات الذي اختاره المستخدم هو :- </span>
+          <span style="font-size: 22px; color: black;"> نوع حامي الشاشات الذي اختاره المستخدم :-  </span>
           <span style="font-size: 22px; color: green; font-weight: 600;">${screenProtector}</span>
         </div>
 
         <div style="display: flex; gap: 10px;">
           <span style="font-size: 22px; color: black;"> اختار المستخدم من منتجات واقيات الشاشات المسطحة :- </span>
-          <span style="font-size: 22px; color: green; font-weight: 600;">${screenProducts?.type}</span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table style="border-collapse: collapse; width: 100%; font-size: 18px;">
+            <thead>
+              <tr>
+                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">المنتج</th>
+                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">العدد</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${screenProducts
+                .map(
+                  (product) => `
+                <tr>
+                  <td style="border: 1px solid #ddd; padding: 8px;">${product.productName}</td>
+                  <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">${product.num}</td>
+                </tr>
+              `
+                )
+                .join("")}
+            </tbody>
+          </table>
         </div>
 
-        <div style="display: flex; gap: 10px;">
-          <span style="font-size: 22px; color: black;"> وعددها :- </span>
-          <span style="font-size: 22px; color: green; font-weight: 600;">${screenProducts?.num}</span>
-        </div>
+
 
         <div style="display: flex; gap: 10px;">
           <span style="font-size: 22px; color: black;"> المنطقة :- </span>
